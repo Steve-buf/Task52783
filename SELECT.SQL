@@ -1,6 +1,7 @@
 -- Название и продолжительность самого длительного трека.
-select MAX(time) 
-from public.track
+SELECT MAX(time)
+FROM public.track
+RETURNING public.name
 
 -- Название треков, продолжительность которых не менее 3,5 минут.
 select time
@@ -28,11 +29,10 @@ LEFT JOIN public.gerne_executor  ON id = id_gerne
 GROUP BY name_gerne 
 
 -- Количество треков, вошедших в альбомы 2019–2020 годов.
-SELECT COUNT(*) from (
 SELECT track.id FROM public.track
 JOIN public.album_track ON album_track.id_track = id
-join public.album on public.album.id = public.album_track.id_album 
-where public.album.year >= '2019-01-01' and public.album.year <='2020-12-31')
+JOIN public.album on public.album.id = public.album_track.id_album
+WHERE public.album.year >= '2019-01-01' and public.album.year <='2020-12-31'
 
 -- Средняя продолжительность треков по каждому альбому.
 SELECT album."name" , avg(time) t FROM album
@@ -42,10 +42,10 @@ GROUP BY album."name"
 ORDER BY t ;
 
 -- Все исполнители, которые не выпустили альбомы в 2020 году.
-select nickname  from public.executor 
-join public.album on album."year" !=2020
-join album_executor on public.album.id = id_album
-where id_executor = public.executor.id 
+SELECT nickname FROM (
+SELECT public.album FROM album.year WHERE year != 2020
+JOIN album_executor ON public.album.id = id_album
+WHERE id_executor = public.executor.id ) 
 
 -- Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами).
 select public.play_list."name"  from  public.play_list
