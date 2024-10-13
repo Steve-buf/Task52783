@@ -1,37 +1,42 @@
 -- (1) Название и продолжительность самого длительного трека.
-SELECT time, duration FROM public.track 
-WHERE duration IN (SELECT MAX(duration) FROM publick.track);
+SELECT time, name FROM track 
+WHERE time IN (SELECT MAX(time) FROM track)
+LIMIT 1;
+
+SELECT time, name FROM track
+	ORDER BY time DESC
+	LIMIT 1;
 
 -- (2) Название треков, продолжительность которых не менее 3,5 минут.
-select time
+select time, name
 from public.track
-where time>='00:03:30'
+where time>='00:03:30';
 
 -- (3) Названия сборников, вышедших в период с 2018 по 2020 годы включительно.
 select "name"
 from public.album
-where "year">='2018-01-01' and "year"<='2020-12-31' 
+where "year">='2018-01-01' and "year"<='2020-12-31' ;
 
 -- (4) Исполнители, чьё имя состоит из одного слова.
-select nickname
+select distinct nickname
 from public.executor
-where nickname not like '% %'
+where nickname not like '% %';
 
 -- (5) Название треков, которые содержат слова «мой» или «my».
 select "name"
 from public.track
-where "name" like '%my%' or  "name" like '%мой%' or "name" like '%My%' 
+where "name" like '%my%' or  "name" like '%мой%' or "name" like '%My%'; 
 
 -- (6) Количество исполнителей в каждом жанре.
 SELECT name_gerne, count(id) FROM public.gerne
 LEFT JOIN public.gerne_executor  ON id = id_gerne
-GROUP BY name_gerne 
+GROUP BY name_gerne ;
 
 -- (7) Количество треков, вошедших в альбомы 2019–2020 годов.
 SELECT count(track.id) FROM public.track
 JOIN public.album_track ON album_track.id_track = id
 JOIN public.album on public.album.id = public.album_track.id_album
-WHERE public.album.year >= '2019-01-01' and public.album.year <='2020-12-31'
+WHERE public.album.year >= '2019-01-01' and public.album.year <='2020-12-31';
 
 
 -- (8) Средняя продолжительность треков по каждому альбому.

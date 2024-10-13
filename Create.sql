@@ -48,3 +48,9 @@ CREATE TABLE IF NOT EXISTS public.album_track (
 	id_track serial NOT NULL references track(id),
 	CONSTRAINT id_SA PRIMARY KEY (id_album, id_track)
 );
+
+
+
+select time
+from public.track
+where time>='00:03:30'
