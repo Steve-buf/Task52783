@@ -1,12 +1,9 @@
-CREATE TABLE IF NOT EXISTS public.track (
-	id serial NOT null PRIMARY KEY,
-	"name" varchar NOT NULL,
-	"time" time NOT NULL
-);
+
 
 CREATE TABLE IF NOT EXISTS public.play_list (
 	id serial NOT null PRIMARY KEY,
-	"name" varchar NULL
+	"name" varchar NOT NULL,
+	"year" INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public.executor (
@@ -20,11 +17,7 @@ CREATE TABLE IF NOT EXISTS public.gerne (
 	name_gerne varchar NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.album (
-	id serial NOT null PRIMARY KEY,
-	"name" varchar NOT NULL,
-	"year" INTEGER NOT NULL
-);
+
 
 CREATE TABLE IF NOT EXISTS public.album_executor (
 	id_executor serial NOT null REFERENCES executor(id),
@@ -51,6 +44,22 @@ CREATE TABLE IF NOT EXISTS public.album_track (
 
 
 
-select time
-from public.track
-where time>='00:03:30'
+CREATE TABLE IF NOT EXISTS public.album (
+	id serial NOT null PRIMARY KEY,
+	"name" varchar NOT NULL,
+	"year" INTEGER NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS public.track (
+	id serial NOT null PRIMARY KEY,
+	"name" varchar NOT NULL,
+	"time" time NOT NULL,
+	id_album INT, FOREIGN KEY (id_album) REFERENCES album(id)
+);
+
+
+
+
+
+

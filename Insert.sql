@@ -131,7 +131,7 @@ INSERT INTO public.album_track (id_album,id_track)
 INSERT INTO public.album_track (id_album,id_track)
 	VALUES (6,6);
 INSERT INTO public.album_track (id_album,id_track)
-	VALUES (3,7);
+	VALUES (7,7);
 
 
 	
